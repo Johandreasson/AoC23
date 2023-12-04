@@ -1,0 +1,34 @@
+import re
+
+day = 1
+
+input_path = f"inputs/day{day}.txt"
+
+# Open and read the contents of the file
+with open(input_path, "r", encoding="utf-8") as file:
+    content = file.read().splitlines()
+
+
+str2num = {
+    "one": "o1e",
+    "two": "t2o",
+    "three": "t3e",
+    "four": "f4r",
+    "five": "f5e",
+    "six": "s6x",
+    "seven": "s7n",
+    "eight": "e8t",
+    "nine": "n9e",
+}
+
+def replace_words(text):
+    for k, v in str2num.items():
+        text = text.replace(k, v)
+    return text
+
+def calibration(text):
+    return sum(int(l[0] + l[-1]) for l in re.sub(r"[A-z]", "", text).split("\n"))
+
+text = open(input_path).read()
+print(calibration(text))
+print(calibration(replace_words(text)))
